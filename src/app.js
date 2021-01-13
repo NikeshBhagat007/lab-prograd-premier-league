@@ -5,6 +5,16 @@ let currentTeam = "Manchester FC";
 let trophiesWon = 27;
 
 //Write your function here
+//Progression 1 [START]
+var createManager = () =>{
+let manager = []; 
+manager.push(managerName);
+manager.push(managerAge);
+manager.push(currentTeam);
+manager.push(trophiesWon);
+return manager;
+}
+//Progression 1 [END]
 
 // Don't edit the following code
 try {
