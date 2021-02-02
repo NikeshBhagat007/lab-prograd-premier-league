@@ -11,7 +11,7 @@ let manager_info = [];
 // manager.push(managerName);
 // manager.push(managerAge);
 // manager.push(currentTeam);
-// manager.push(trophiesWon);
+// manager.push(trophiesWon)
   manager_info = [managerName,managerAge,currentTeam,trophiesWon]; 
   return manager_info;
 }
@@ -47,7 +47,7 @@ var createFormation = (formation) => {
         formation[index] = undefined;
       }
     }
-    return {defender : formation[0] , midfield : midfield[1] , forward : formation[2]} ; //return object as by curly braces and set with index wise key value pairs
+    return {defender : formation[0] , midfield : formation[1] , forward : formation[2]} ; //return object as by curly braces and set with index wise key value pairs
   }
 }
 //Progression 2 [END]
@@ -641,10 +641,11 @@ var filterByAward = (awardsByPlayer) =>
 
 //Progression 6 - Filter players that won ______ award ____ times
 
-var filterByAwardxTimes = (awardsName,NoOfTimes) =>
+function filterByAwardxTimes(awardsName,NoOfTimes)
 {
   var filter_awardxTimes = [];
-  if(NoOfTimes == 0)
+  
+  if(arguments.length == 0  || awardsName == "")
   {
     return filter_awardxTimes;
   }
@@ -657,21 +658,26 @@ var filterByAwardxTimes = (awardsName,NoOfTimes) =>
       {
         if(players[i].awards[j].name == awardsName)
         {
-          filter_awardxTimes.push(players[i]);
-          nCount ++;
+            filter_awardxTimes.push(players[i]);
+            nCount ++;
+            if(nCount == NoOfTimes)
+            {
+              return filter_awardxTimes;
+            }
         }
       }
-      if(nCount == 0)
-      {
-        return filter_awardxTimes;
-      }
-      else
-      {
-        if(nCount == NoOfTimes)
-        {
-          return filter_awardxTimes;
-        }
-      }
+      return filter_awardxTimes;
+      // if(nCount == 0)
+      // {
+      //   return filter_awardxTimes;
+      // }
+      // else
+      // {
+      //   if(nCount == NoOfTimes)
+      //   {
+      //     return filter_awardxTimes;
+      //   }
+      // }
     }
  }
 }
@@ -697,26 +703,23 @@ function filterByAwardxCountry(awardsName,country)
 }
 //Progression 8 - Filter players that won atleast ______ awards, belong to ______ team and are younger than ____
 
-function filterByNoOfAwardsxTeamxAge(awardsName,team,age)
+function filterByNoOfAwardsxTeamxAge(cnt,team,age)
 {
   var filterAwardsxTeamxAge = [];
   for (let i= 0;i<players.length;i++)
   {
     for(let j=0;j<players[i].awards.length;j++)
     {
-      if(players[i].awards[j].name == awardsName && players[i].team == team && players[i].age < age)
+      if(players[i].team == team && players[i].age < age)
       {
-        filterAwardsxTeamxAge.push(players[i]);
+        if(players[i].awards.length == cnt)
+        {
+         filterAwardsxTeamxAge.push(players[i]);
+        }
       }
     }
   }
-  if(filterAwardsxTeamxAge.length > 0)
-  {
-    return filterAwardsxTeamxAge;
-  }
-  else{
-    return filterAwardsxTeamxAge;
-  }
+  return filterAwardsxTeamxAge;
 }
 
 //Progression 9 - Sort players in descending order of their age
